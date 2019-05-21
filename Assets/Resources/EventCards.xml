@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<EventCards>
+	<Card>
+		<ID>0</ID>
+		<Name>Bakery</Name>
+	</Card>
+	<Card>
+		<ID>1</ID>
+		<Name>Grocer</Name>
+	</Card>
+	<Card>
+		<ID>2</ID>
+		<Name>GardenFreshVeggies</Name>
+	</Card>
+	<Card>
+		<ID>3</ID>
+		<Name>FishMarket</Name>
+	</Card>
+	<Card>
+		<ID>4</ID>
+		<Name>Butcher</Name>
+	</Card>
+</EventCards>

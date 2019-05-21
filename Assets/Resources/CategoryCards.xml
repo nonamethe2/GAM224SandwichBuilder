@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CategoryCards>
+	<Card>
+		<ID>0</ID>
+		<Name>Game Night</Name>
+		<Flavor>16</Flavor>
+		<Crunch>8</Crunch>
+		<Bonus>Texture</Bonus>
+	</Card>
+</CategoryCards>
