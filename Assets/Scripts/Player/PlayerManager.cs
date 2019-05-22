@@ -31,6 +31,8 @@ public class PlayerManager : NetworkBehaviour
 	public PlayerInfo thePlayer;
 
 	private CanvasGroup HUD;
+	private int ingrInd = 0;
+	private int evntInd = 0;
 
 	void Start ()
 	{
@@ -53,20 +55,30 @@ public class PlayerManager : NetworkBehaviour
 			CmdChangeMyName (thePlayer.pName, UID);
 
 			//this works it just doesn't display the listener in the inspector
-			HUD.transform.GetChild (2).GetComponent<Button> ().onClick.AddListener (() => drawCards ());
+			//HUD.transform.GetChild (2).GetComponent<Button> ().onClick.AddListener (() => drawCards ());
 			HUD.transform.parent.GetChild (2).GetComponent<Button> ().onClick.AddListener (() => endTurn ());
+			GameObject.Find ("Canvas/Button Display Cards").GetComponent<Button> ().onClick.AddListener (() => drawCards ());
 
-			//looping over the values created issues with the parameter it was passing in
-			//HUD.transform.GetChild (0).GetChild (0).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (0));
-			//HUD.transform.GetChild (0).GetChild (1).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (1));
-			//HUD.transform.GetChild (0).GetChild (2).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (2));
-			//HUD.transform.GetChild (0).GetChild (3).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (3));
-			//HUD.transform.GetChild (0).GetChild (4).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (4));
-			//HUD.transform.GetChild (0).GetChild (5).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (5));
+			//add listener for the ingredient card selectors (next and previous)
+			HUD.transform.GetChild (0).GetChild (5).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (-1));
+			HUD.transform.GetChild (0).GetChild (6).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (1));
 
-			//HUD.transform.GetChild (1).GetChild (0).GetComponent<Button> ().onClick.AddListener (() => playEvntCard (0));
-			//HUD.transform.GetChild (1).GetChild (1).GetComponent<Button> ().onClick.AddListener (() => playEvntCard (1));
+			//add listener for the event card selectors (next and previous)
+			HUD.transform.GetChild (1).GetChild (2).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (-1));
+			HUD.transform.GetChild (1).GetChild (3).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (1));
+
 		}
+	}
+
+	public void btnUpdateEvents(int dir)
+	{
+		CmdUpdateEvents (dir);
+	}
+
+	[Command]
+	public void CmdUpdateEvents(int dir)
+	{
+		RpcUpdateEventCardsDisplay (dir);
 	}
 
 	// either +/- 1 for either right / left
@@ -74,7 +86,37 @@ public class PlayerManager : NetworkBehaviour
 	[ClientRpc]
 	public void RpcUpdateEventCardsDisplay (int dir)
 	{
+		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
+			return;
 
+		evntInd += dir;
+		//int x = 0;
+
+		//Debug.Log (evntInd);
+
+		//List<Button> btns = new List<Button> ();
+		Button btn = GameObject.Find ("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Button> ();
+
+		if(evntInd >= evntCrds.Count || evntInd < 0)
+		{
+			btn.GetComponent<Image> ().sprite = Resources.Load ("Cards/Blank", typeof (Sprite)) as Sprite;
+			return;
+		}
+
+		//Debug.Log (Card.getEvntImg (evntInd));
+		btn.GetComponent<Image> ().sprite = Resources.Load ("Cards/Events/" + Card.getEvntImg (evntInd), typeof (Sprite)) as Sprite;
+		btn.onClick.AddListener (() => playEvntCard (evntInd));
+	}
+
+	public void btnUpdateIngredients(int dir)
+	{
+		CmdUpdateIngredients (dir);
+	}
+
+	[Command]
+	public void CmdUpdateIngredients(int dir)
+	{
+		RpcUpdateIngredientCardsDisplay (dir);
 	}
 
 	[ClientRpc]
@@ -83,22 +125,30 @@ public class PlayerManager : NetworkBehaviour
 		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
 			return;
 
-		//TODO: set next and previous buttons
-
+		ingrInd += dir;
 		int x = 0;
+
 		List<Button> btns = new List<Button> ();
 		btns.Add (GameObject.Find ("Canvas/Panel Player HUD/Panel Ingredients/Button CRD1").GetComponent<Button> ());
 		btns.Add (GameObject.Find ("Canvas/Panel Player HUD/Panel Ingredients/Button CRD2").GetComponent<Button> ());
 		btns.Add (GameObject.Find ("Canvas/Panel Player HUD/Panel Ingredients/Button CRD3").GetComponent<Button> ());
 		btns.Add (GameObject.Find ("Canvas/Panel Player HUD/Panel Ingredients/Button CRD4").GetComponent<Button> ());
-		foreach(Button btn in btns)
+		btns.Add (GameObject.Find ("Canvas/Panel Player HUD/Panel Ingredients/Button CRD5").GetComponent<Button> ());
+		foreach (Button btn in btns)
 		{
-			int _x = ++x;
-			if (ingCrds.Count >= _x + 1) //display some none card?
+			int _x = 0;
+
+			if (ingrInd < 0 || ingrInd + x >= ingCrds.Count)
+			{
+				Debug.Log (ingrInd.ToString () + x.ToString () + ingCrds.Count.ToString ());
+				btn.transform.GetChild (0).GetComponent<Text> ().text = "-1";
+				_x = ++x;
 				continue;
+			}
 
 			if (dir == -1)
 			{
+				btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd+x].ToString ();
 				btn.onClick.AddListener (() => playIngrCard (_x - 1));
 			}
 			else if (dir == 0)
@@ -107,8 +157,11 @@ public class PlayerManager : NetworkBehaviour
 			}
 			else if (dir == 1)
 			{
+				btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd + x].ToString ();
 				btn.onClick.AddListener (() => playIngrCard (_x + 1));
 			}
+
+			_x = ++x;
 		}
 	}
 
@@ -161,7 +214,7 @@ public class PlayerManager : NetworkBehaviour
 			Image newImg = Instantiate (Resources.Load ("Image Ingredient", typeof (Image)) as Image);
 			newImg.transform.SetParent (sndwchPanel.transform);
 			newImg.rectTransform.localPosition = Vector3.zero;
-			newImg.sprite = Resources.Load (Card.getImg (i), typeof (Sprite)) as Sprite;
+			newImg.sprite = Resources.Load (Card.getIngrdntImg (i), typeof (Sprite)) as Sprite;
 
 		}
 	}
@@ -200,19 +253,19 @@ public class PlayerManager : NetworkBehaviour
 	public void drawCards ()
 	{
 		CmdDrawNewCards ();
+		GameObject.Find ("Canvas/Button Display Cards").SetActive (false);
 	}
 
+	//should only be called once at setup
 	[Command]
 	public void CmdDrawNewCards ()
 	{
 		//add the cards to the sync lists and then call the RPC function to update the UI
 		ScoreManager table = GameObject.FindGameObjectWithTag ("Table").GetComponent<ScoreManager> ();
-		//if (evntCrds.Count >= maxEventCardsAllowed || table.evntCrdsDeck.Count == 0)
-			//return;
 
 		for (int x = 0; x < maxIngredientsAllowed; x += 1)
 		{
-			if (x < maxEventCardsAllowed && (evntCrds.Count < maxEventCardsAllowed || table.evntCrdsDeck.Count > 0))
+			if (x < maxEventCardsAllowed /*&& (evntCrds.Count < maxEventCardsAllowed || table.evntCrdsDeck.Count > 0)*/)
 			{
 				evntCrds.Add (table.evntCrdsDeck[0]);
 				table.evntCrdsDeck.RemoveAt (0);
@@ -234,14 +287,15 @@ public class PlayerManager : NetworkBehaviour
 			return;
 
 		HUD = GameObject.Find ("Canvas/Panel Player HUD").GetComponent<CanvasGroup> ();
-		for (int x = 0; x < maxIngredientsAllowed; x += 1)
+		HUD.transform.GetChild (1).GetChild (0).GetComponent<Image> ().sprite =
+					Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[0]), typeof (Sprite)) as Sprite;
+		for (int x = 0; x < maxIngredientsAllowed-1; x += 1)
 		{
-			if (x < maxEventCardsAllowed)
-			{
-				//evntCrds.Add (new Card (Type.Event).ID); //just add some event cards (capped at 2)
-				HUD.transform.GetChild (1).GetChild (x).GetChild (0).GetComponent<Text> ().text = evntCrds[x].ToString ();
-
-			}
+			//if (x < maxEventCardsAllowed)
+			//{
+			//	HUD.transform.GetChild (1).GetChild (0).GetComponent<Image> ().sprite =
+			//		Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[0]), typeof (Sprite)) as Sprite;
+			//}
 
 			//ingCrds.Add (new Card (Type.Ingredient).ID);
 			string tmp = ingCrds.Count > x ? ingCrds[x].ToString () : "-1";

@@ -140,9 +140,14 @@ public class Card {
 	/// </summary>
 	/// <param name="CID">Card ID</param>
 	/// <returns>Image type of the card image</returns>
-	public static string getImg (int CID)
+	public static string getIngrdntImg (int CID)
 	{
 		return getIngredientStats (CID).name;
+	}
+
+	public static string getEvntImg(int CID)
+	{
+		return getEventCardStats (CID).name;
 	}
 
 	/// <summary>
@@ -162,7 +167,9 @@ public class Card {
 	public static Card getEventCardStats (int CID)
 	{
 		Card newCard = new Card (CID);
-		newCard.cardType = CardType.Ingredient;
+		newCard.cardType = CardType.Event;
+
+		//UnityEngine.Debug.Log (CID);
 
 		UnityEngine.TextAsset sandwichesTXT = UnityEngine.Resources.Load ("EventCards", typeof (UnityEngine.TextAsset)) as UnityEngine.TextAsset;
 		XmlDocument xmlDoc = new XmlDocument ();
@@ -171,9 +178,12 @@ public class Card {
 		XmlNodeList evntCards = xmlDoc.GetElementsByTagName ("Card");
 		foreach (XmlNode node in evntCards)
 		{
-			newCard.name = node.ChildNodes[1].InnerXml;
+			if (node.ChildNodes[0].InnerXml == CID.ToString ())
+				newCard.name = node.ChildNodes[1].InnerXml;
+
 		}
 
+		//UnityEngine.Debug.Log ("STATIC FUNC  " + newCard.name);
 		return newCard;
 	}
 

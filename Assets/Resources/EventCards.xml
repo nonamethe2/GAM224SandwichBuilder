@@ -20,4 +20,32 @@
 		<ID>4</ID>
 		<Name>Butcher</Name>
 	</Card>
+	<Card>
+		<ID>5</ID>
+		<Name>Toaster</Name>
+	</Card>
+	<Card>
+		<ID>6</ID>
+		<Name>Skillet</Name>
+	</Card>
+	<Card>
+		<ID>7</ID>
+		<Name>Mayo</Name>
+	</Card>
+	<Card>
+		<ID>8</ID>
+		<Name>Mustard</Name>
+	</Card>
+	<Card>
+		<ID>9</ID>
+		<Name>Ketchup</Name>
+	</Card>
+	<Card>
+		<ID>10</ID>
+		<Name>PowerLoss</Name>
+	</Card>
+	<Card>
+		<ID>11</ID>
+		<Name>SignatureSauce</Name>
+	</Card>
 </EventCards>
