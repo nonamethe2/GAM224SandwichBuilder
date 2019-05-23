@@ -115,7 +115,9 @@ public class ScoreManager : NetworkBehaviour {
 	[ClientRpc]
 	public void RpcAddNewCatCard ()
 	{
-		GameObject.Find ("Canvas/Panel Category/Text TEMP Cat").GetComponent<Text> ().text = catCrds[0].ToString ();
+		//GameObject.Find ("Canvas/Panel Category/Text TEMP Cat").GetComponent<Text> ().text = catCrds[0].ToString ();
+		GameObject.Find ("Canvas/Panel Category/Image Cat Card").GetComponent<Image> ().sprite = 
+			Resources.Load ("Cards/Category/" + catCrds[0].ToString (), typeof (Sprite)) as Sprite;
 	}
 
 	/// <summary>

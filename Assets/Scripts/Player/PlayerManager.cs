@@ -150,11 +150,14 @@ public class PlayerManager : NetworkBehaviour
 			btn.GetComponent<Image> ().sprite = 
 				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[ingrInd + x]), typeof (Sprite)) as Sprite;
 
-			if(dir == -1)
+			if (dir == -1 || dir == 0) 
 				btn.onClick.AddListener (() => playIngrCard (_x - 1));
 
-			else if(dir == 1)
+			else if (dir == 1)
 				btn.onClick.AddListener (() => playIngrCard (_x + 1));
+
+			//else if (dir == 0)
+			//	btn.onClick.AddListener (() => playIngrCard (_x-1));
 
 			//if (dir == -1)
 			//{
@@ -189,6 +192,7 @@ public class PlayerManager : NetworkBehaviour
 	/// <param name="ind">Index of the ingredient card to play. </param>
 	public void playIngrCard(int ind)
 	{
+		Debug.Log (ind);
 		//check if selected card exists or that adding the card won't exceed the ingredient limit
 		if (ingCrds.Count <= ind || (ingCrds.Count + 1) <= maxIngredientsAllowed)
 			return;
@@ -211,7 +215,6 @@ public class PlayerManager : NetworkBehaviour
 		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
 			return;
 
-		//Debug.Log (UID);
 		CanvasGroup sndwchPanel = UID == 1 ?
 				GameObject.Find ("Canvas/Panel Category/Sandwich P1").GetComponent<CanvasGroup> () :
 				GameObject.Find ("Canvas/Panel Category/Sandwich P2").GetComponent<CanvasGroup> ();
@@ -304,6 +307,9 @@ public class PlayerManager : NetworkBehaviour
 			HUD.transform.GetChild (0).GetChild (x+2).GetComponent<Image> ().sprite =
 				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[x]), typeof (Sprite)) as Sprite;
 		}
+
+		RpcUpdateEventCardsDisplay (0);
+		RpcUpdateIngredientCardsDisplay (0);
 	}
 
 	[Command]

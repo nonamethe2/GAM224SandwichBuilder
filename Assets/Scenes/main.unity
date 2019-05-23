@@ -439,6 +439,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 0
+  noMove: 0
 --- !u!1 &253189122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1445,6 +1446,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 0
+  noMove: 0
 --- !u!1 &668060683
 GameObject:
   m_ObjectHideFlags: 0
@@ -2403,6 +2405,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 0
+  noMove: 0
 --- !u!1 &1240405517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2531,7 +2534,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1276222323
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2938,6 +2941,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 0
+  noMove: 0
 --- !u!1 &1620475662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,7 +3238,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 66, y: -260}
+  m_AnchoredPosition: {x: 46, y: -260}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1674297390
@@ -3409,6 +3413,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 0
+  noMove: 0
 --- !u!1 &1700544732
 GameObject:
   m_ObjectHideFlags: 0
@@ -4116,6 +4121,7 @@ MonoBehaviour:
   scale: 2.6
   delay: 0.01
   moveRight: 1
+  noMove: 0
 --- !u!1 &1974907721
 GameObject:
   m_ObjectHideFlags: 0
