@@ -178,8 +178,12 @@ public class Card {
 		XmlNodeList evntCards = xmlDoc.GetElementsByTagName ("Card");
 		foreach (XmlNode node in evntCards)
 		{
+			//UnityEngine.Debug.Log (node.ChildNodes[0].InnerXml);
 			if (node.ChildNodes[0].InnerXml == CID.ToString ())
+			{
 				newCard.name = node.ChildNodes[1].InnerXml;
+				break;
+			}
 
 		}
 

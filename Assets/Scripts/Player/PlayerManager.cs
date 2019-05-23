@@ -55,17 +55,16 @@ public class PlayerManager : NetworkBehaviour
 			CmdChangeMyName (thePlayer.pName, UID);
 
 			//this works it just doesn't display the listener in the inspector
-			//HUD.transform.GetChild (2).GetComponent<Button> ().onClick.AddListener (() => drawCards ());
-			HUD.transform.parent.GetChild (2).GetComponent<Button> ().onClick.AddListener (() => endTurn ());
+			GameObject.Find ("Canvas/Button End Turn").GetComponent<Button> ().onClick.AddListener (() => endTurn ());
 			GameObject.Find ("Canvas/Button Display Cards").GetComponent<Button> ().onClick.AddListener (() => drawCards ());
 
 			//add listener for the ingredient card selectors (next and previous)
-			HUD.transform.GetChild (0).GetChild (5).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (-1));
-			HUD.transform.GetChild (0).GetChild (6).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (1));
+			HUD.transform.GetChild (0).GetChild (0).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (-1));
+			HUD.transform.GetChild (0).GetChild (1).GetComponent<Button> ().onClick.AddListener (() => btnUpdateIngredients (1));
 
 			//add listener for the event card selectors (next and previous)
-			HUD.transform.GetChild (1).GetChild (2).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (-1));
-			HUD.transform.GetChild (1).GetChild (3).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (1));
+			HUD.transform.GetChild (1).GetChild (0).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (-1));
+			HUD.transform.GetChild (1).GetChild (1).GetComponent<Button> ().onClick.AddListener (() => btnUpdateEvents (1));
 
 		}
 	}
@@ -97,14 +96,15 @@ public class PlayerManager : NetworkBehaviour
 		//List<Button> btns = new List<Button> ();
 		Button btn = GameObject.Find ("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Button> ();
 
-		if(evntInd >= evntCrds.Count || evntInd < 0)
+		if (evntInd >= evntCrds.Count || evntInd < 0)
 		{
 			btn.GetComponent<Image> ().sprite = Resources.Load ("Cards/Blank", typeof (Sprite)) as Sprite;
 			return;
 		}
 
-		//Debug.Log (Card.getEvntImg (evntInd));
-		btn.GetComponent<Image> ().sprite = Resources.Load ("Cards/Events/" + Card.getEvntImg (evntInd), typeof (Sprite)) as Sprite;
+		//Debug.Log (evntCrds[evntInd].ToString () + Card.getEvntImg (evntInd));
+		btn.GetComponent<Image> ().sprite =
+			Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[evntInd]), typeof (Sprite)) as Sprite;
 		btn.onClick.AddListener (() => playEvntCard (evntInd));
 	}
 
@@ -140,26 +140,36 @@ public class PlayerManager : NetworkBehaviour
 
 			if (ingrInd < 0 || ingrInd + x >= ingCrds.Count)
 			{
-				Debug.Log (ingrInd.ToString () + x.ToString () + ingCrds.Count.ToString ());
-				btn.transform.GetChild (0).GetComponent<Text> ().text = "-1";
+				//Debug.Log (ingrInd.ToString () + x.ToString () + ingCrds.Count.ToString ());
+				//btn.transform.GetChild (0).GetComponent<Text> ().text = "-1";
+				btn.GetComponent<Image> ().sprite = Resources.Load ("Cards/Blank", typeof (Sprite)) as Sprite;
 				_x = ++x;
 				continue;
 			}
 
-			if (dir == -1)
-			{
-				btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd+x].ToString ();
+			btn.GetComponent<Image> ().sprite = 
+				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[ingrInd + x]), typeof (Sprite)) as Sprite;
+
+			if(dir == -1)
 				btn.onClick.AddListener (() => playIngrCard (_x - 1));
-			}
-			else if (dir == 0)
-			{
-				btn.onClick.AddListener (() => playIngrCard (_x));
-			}
-			else if (dir == 1)
-			{
-				btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd + x].ToString ();
+
+			else if(dir == 1)
 				btn.onClick.AddListener (() => playIngrCard (_x + 1));
-			}
+
+			//if (dir == -1)
+			//{
+			//	//btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd + x].ToString ();
+			//	btn.onClick.AddListener (() => playIngrCard (_x - 1));
+			//}
+			////else if (dir == 0)
+			////{
+			////	btn.onClick.AddListener (() => playIngrCard (_x));
+			////}
+			//else if (dir == 1)
+			//{
+			//	//btn.transform.GetChild (0).GetComponent<Text> ().text = ingCrds[ingrInd + x].ToString ();
+			//	btn.onClick.AddListener (() => playIngrCard (_x + 1));
+			//}
 
 			_x = ++x;
 		}
@@ -287,20 +297,12 @@ public class PlayerManager : NetworkBehaviour
 			return;
 
 		HUD = GameObject.Find ("Canvas/Panel Player HUD").GetComponent<CanvasGroup> ();
-		HUD.transform.GetChild (1).GetChild (0).GetComponent<Image> ().sprite =
+		GameObject.Find("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Image> ().sprite =
 					Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[0]), typeof (Sprite)) as Sprite;
 		for (int x = 0; x < maxIngredientsAllowed-1; x += 1)
 		{
-			//if (x < maxEventCardsAllowed)
-			//{
-			//	HUD.transform.GetChild (1).GetChild (0).GetComponent<Image> ().sprite =
-			//		Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[0]), typeof (Sprite)) as Sprite;
-			//}
-
-			//ingCrds.Add (new Card (Type.Ingredient).ID);
-			string tmp = ingCrds.Count > x ? ingCrds[x].ToString () : "-1";
-			HUD.transform.GetChild (0).GetChild (x).GetChild (0).GetComponent<Text> ().text = tmp;
-			//HUD.transform.GetChild (0).GetChild (x).GetComponent<Image> ().sprite = Card.getImg (ingCrds[x]); //TODO UNCOMMENT
+			HUD.transform.GetChild (0).GetChild (x+2).GetComponent<Image> ().sprite =
+				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[x]), typeof (Sprite)) as Sprite;
 		}
 	}
 

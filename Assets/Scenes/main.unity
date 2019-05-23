@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 127770570}
   - component: {fileID: 127770569}
   - component: {fileID: 127770568}
+  - component: {fileID: 127770571}
   m_Layer: 5
   m_Name: Button CRD1
   m_TagString: Ingredient
@@ -342,7 +343,7 @@ RectTransform:
   m_Children:
   - {fileID: 332168172}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -424,6 +425,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 127770566}
   m_CullTransparentMesh: 0
+--- !u!114 &127770571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 127770566}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
 --- !u!1 &253189122
 GameObject:
   m_ObjectHideFlags: 0
@@ -602,10 +617,10 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1920755985}
-  - {fileID: 1000143662}
   - {fileID: 1840916325}
   - {fileID: 1240405518}
+  - {fileID: 1920755985}
+  - {fileID: 1000143662}
   m_Father: {fileID: 1834092304}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -771,7 +786,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &332168174
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -959,7 +974,7 @@ RectTransform:
   m_Children:
   - {fileID: 1234835073}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1221,7 +1236,7 @@ RectTransform:
   m_Children:
   - {fileID: 1974907722}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 6
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1314,6 +1329,7 @@ GameObject:
   - component: {fileID: 610985520}
   - component: {fileID: 610985519}
   - component: {fileID: 610985518}
+  - component: {fileID: 610985521}
   m_Layer: 5
   m_Name: Button CRD2
   m_TagString: Ingredient
@@ -1333,7 +1349,7 @@ RectTransform:
   m_Children:
   - {fileID: 1633090220}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1415,6 +1431,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 610985516}
   m_CullTransparentMesh: 0
+--- !u!114 &610985521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 610985516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
 --- !u!1 &668060683
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,13 +1530,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
-  - {fileID: 1834092304}
   - {fileID: 2084094686}
   - {fileID: 923186824}
   - {fileID: 2126681593}
   - {fileID: 978290461}
   - {fileID: 1738379299}
   - {fileID: 501582541}
+  - {fileID: 1834092304}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1582,7 +1612,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &735283285
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1695,7 +1725,7 @@ RectTransform:
   m_Children:
   - {fileID: 512791860}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1818,7 +1848,7 @@ RectTransform:
   m_Children:
   - {fileID: 253189123}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2023,7 +2053,7 @@ RectTransform:
   m_Children:
   - {fileID: 318866194}
   m_Father: {fileID: 322869706}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2257,6 +2287,7 @@ GameObject:
   - component: {fileID: 1239469151}
   - component: {fileID: 1239469150}
   - component: {fileID: 1239469149}
+  - component: {fileID: 1239469152}
   m_Layer: 5
   m_Name: Button CRD3
   m_TagString: Ingredient
@@ -2276,7 +2307,7 @@ RectTransform:
   m_Children:
   - {fileID: 1489308347}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2358,6 +2389,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1239469147}
   m_CullTransparentMesh: 0
+--- !u!114 &1239469152
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1239469147}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
 --- !u!1 &1240405517
 GameObject:
   m_ObjectHideFlags: 0
@@ -2388,7 +2433,7 @@ RectTransform:
   m_Children:
   - {fileID: 68479012}
   m_Father: {fileID: 322869706}
-  m_RootOrder: 3
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2689,7 +2734,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1489308349
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2777,6 +2822,7 @@ GameObject:
   - component: {fileID: 1538509128}
   - component: {fileID: 1538509127}
   - component: {fileID: 1538509126}
+  - component: {fileID: 1538509129}
   m_Layer: 5
   m_Name: Button CRD5
   m_TagString: Ingredient
@@ -2796,7 +2842,7 @@ RectTransform:
   m_Children:
   - {fileID: 2005813360}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 4
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2878,6 +2924,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1538509124}
   m_CullTransparentMesh: 0
+--- !u!114 &1538509129
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1538509124}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
 --- !u!1 &1620475662
 GameObject:
   m_ObjectHideFlags: 0
@@ -3019,7 +3079,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &1633090222
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3162,13 +3222,13 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1842928251}
+  - {fileID: 553892692}
   - {fileID: 127770567}
   - {fileID: 610985517}
   - {fileID: 1239469148}
   - {fileID: 1688079208}
   - {fileID: 1538509125}
-  - {fileID: 1842928251}
-  - {fileID: 553892692}
   m_Father: {fileID: 1834092304}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3233,6 +3293,7 @@ GameObject:
   - component: {fileID: 1688079211}
   - component: {fileID: 1688079210}
   - component: {fileID: 1688079209}
+  - component: {fileID: 1688079212}
   m_Layer: 5
   m_Name: Button CRD4
   m_TagString: Ingredient
@@ -3252,7 +3313,7 @@ RectTransform:
   m_Children:
   - {fileID: 735283283}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3334,6 +3395,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1688079207}
   m_CullTransparentMesh: 0
+--- !u!114 &1688079212
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1688079207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
 --- !u!1 &1700544732
 GameObject:
   m_ObjectHideFlags: 0
@@ -3439,7 +3514,7 @@ RectTransform:
   m_Children:
   - {fileID: 529758166}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3638,12 +3713,12 @@ RectTransform:
   - {fileID: 1674297389}
   - {fileID: 322869706}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 0
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1024, y: 768}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!225 &1834092305
 CanvasGroup:
@@ -3720,7 +3795,7 @@ RectTransform:
   m_Children:
   - {fileID: 369320201}
   m_Father: {fileID: 322869706}
-  m_RootOrder: 2
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3832,7 +3907,7 @@ RectTransform:
   m_Children:
   - {fileID: 474633574}
   m_Father: {fileID: 1674297389}
-  m_RootOrder: 5
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3925,6 +4000,7 @@ GameObject:
   - component: {fileID: 1920755988}
   - component: {fileID: 1920755987}
   - component: {fileID: 1920755986}
+  - component: {fileID: 1920755989}
   m_Layer: 5
   m_Name: Button CRD7
   m_TagString: Event
@@ -3944,7 +4020,7 @@ RectTransform:
   m_Children:
   - {fileID: 2111997376}
   m_Father: {fileID: 322869706}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4026,6 +4102,20 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1920755984}
   m_CullTransparentMesh: 0
+--- !u!114 &1920755989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1920755984}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 1
 --- !u!1 &1974907721
 GameObject:
   m_ObjectHideFlags: 0
@@ -4168,7 +4258,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: 
 --- !u!222 &2005813362
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4211,7 +4301,7 @@ RectTransform:
   - {fileID: 1665604097}
   - {fileID: 328647164}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -4368,7 +4458,7 @@ RectTransform:
   m_Children:
   - {fileID: 1700544733}
   m_Father: {fileID: 668060687}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}

@@ -12,7 +12,7 @@
 		</Card>
 		<Card>
 			<ID>1</ID>
-			<Name>Hamburger Bun</Name>
+			<Name>HamburgerBun</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Bread</IngredientType>
 			<Sweet>1</Sweet>
@@ -28,7 +28,7 @@
 		</Card>
 		<Card>
 			<ID>3</ID>
-			<Name>Marble Rye</Name>
+			<Name>MarbleRye</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Bread</IngredientType>
 			<Sour>2</Sour>
@@ -50,7 +50,7 @@
 		</Card>
 		<Card>
 			<ID>6</ID>
-			<Name>White Bread</Name>
+			<Name>WhiteBread</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Bread</IngredientType>
 			<Soft>1</Soft>
@@ -59,7 +59,7 @@
 	<Meats>
 		<Card>
 			<ID>7</ID>
-			<Name>Hamburger Meat</Name>
+			<Name>HamburgerMeat</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Meat</IngredientType>
 			<Meaty>4</Meaty>
@@ -67,7 +67,7 @@
 		</Card>
 		<Card>
 			<ID>8</ID>
-			<Name>Bacon Strips</Name>
+			<Name>BaconStrips</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Meat</IngredientType>
 			<Salty>3</Salty>
@@ -82,22 +82,162 @@
 			<Salty>2</Salty>
 			<Meaty>4</Meaty>
 		</Card>
+		<Card>
+			<ID>10</ID>
+			<Name>Pork</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Meaty>2</Meaty>
+			<Spicy>2</Spicy>
+			<Juicy>3</Juicy>
+		</Card>
+		<Card>
+			<ID>11</ID>
+			<Name>Pastrami</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Meaty>2</Meaty>
+			<Spicy>4</Spicy>
+		</Card>
+		<Card>
+			<ID>12</ID>
+			<Name>RoastBeef</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Meaty>5</Meaty>
+		</Card>
+		<Card>
+			<ID>13</ID>
+			<Name>Tuna</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Sweet>2</Sweet>
+			<Meaty>2</Meaty>
+			<Soft>3</Soft>
+		</Card>
+		<Card>
+			<ID>14</ID>
+			<Name>Bologna</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Salty>3</Salty>
+			<Meaty>3</Meaty>
+		</Card>
+		<Card>
+			<ID>15</ID>
+			<Name>FriedEgg</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Meat</IngredientType>
+			<Sweet>1</Sweet>
+			<Salty>2</Salty>
+			<Meaty>1</Meaty>
+		</Card>
 	</Meats>
 	<Veggies>
 		<Card>
-			<ID>10</ID>
+			<ID>16</ID>
 			<Name>Lettuce</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Veggies</IngredientType>
 			<Crunch>5</Crunch>
 		</Card>
 		<Card>
-			<ID>11</ID>
+			<ID>17</ID>
 			<Name>Tomato</Name>
 			<CardType>Ingredient</CardType>
 			<IngredientType>Veggies</IngredientType>
 			<Sweet>1</Sweet>
 			<Juicy>4</Juicy>
 		</Card>
+		<Card>
+			<ID>18</ID>
+			<Name>Pickles</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Veggies</IngredientType>
+			<Sour>4</Sour>
+			<Crunch>2</Crunch>
+		</Card>
+		<Card>
+			<ID>19</ID>
+			<Name>Onion</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Veggies</IngredientType>
+			<Sweet>1</Sweet>
+			<Crunch>4</Crunch>
+		</Card>
+		<Card>
+			<ID>20</ID>
+			<Name>Jalepeno</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Veggies</IngredientType>
+			<Sour>1</Sour>
+			<Salty>1</Salty>
+			<Spicy>5</Spicy>
+		</Card>
+		<Card>
+			<ID>21</ID>
+			<Name>PotatoChips</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Veggies</IngredientType>
+			<Salty>2</Salty>
+			<Crunch>5</Crunch>
+		</Card>
+		<Card>
+			<ID>22</ID>
+			<Name>Celery</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Veggies</IngredientType>
+			<Crunch>4</Crunch>
+		</Card>
 	</Veggies>
+	<Cheese>
+		<Card>
+			<ID>23</ID>
+			<Name>AmericanCheese</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Soft>5</Soft>
+		</Card>
+		<Card>
+			<ID>24</ID>
+			<Name>SwissCheese</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Sweet>2</Sweet>
+			<Soft>3</Soft>
+		</Card>
+		<Card>
+			<ID>25</ID>
+			<Name>PepperJack</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Spicy>3</Spicy>
+			<Soft>3</Soft>
+		</Card>
+		<Card>
+			<ID>26</ID>
+			<Name>ProvoloneCheese</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Sweet>1</Sweet>
+			<Soft>4</Soft>
+		</Card>
+		<Card>
+			<ID>27</ID>
+			<Name>ParmeseanCheese</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Sweet>2</Sweet>
+			<Salty>4</Salty>
+		</Card>
+		<Card>
+			<ID>28</ID>
+			<Name>CheddarCheese</Name>
+			<CardType>Ingredient</CardType>
+			<IngredientType>Cheese</IngredientType>
+			<Sour>2</Sour>
+			<Sweet>2</Sweet>
+			<Soft>2</Soft>
+		</Card>
+	</Cheese>
 </IngredientCards>
