@@ -57,6 +57,16 @@ public class CardViewer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 		GetComponent<RectTransform> ().sizeDelta = defScale;
 	}
 
+	/// <summary>
+	/// Attached to the buttons action listener so it's called when clicked. 
+	/// Should be called before other action listeners. 
+	/// </summary>
+	public void btnResetTrans ()
+	{
+		transform.SetParent (prnt);
+		transform.SetSiblingIndex (siblingIndex);
+	}
+
 	//IEnumerator MoveToPos (Vector3 newPosition, Vector2 newScale, float time)
 	//{
 	//	float elapsedTime = 0;

@@ -8,6 +8,7 @@ TagManager:
   - Ingredient
   - Event
   - Table
+  - IngredientImage
   layers:
   - Default
   - TransparentFX
