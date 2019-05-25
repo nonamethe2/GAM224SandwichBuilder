@@ -21,9 +21,10 @@ GameObject:
   - component: {fileID: 224958482870195730}
   - component: {fileID: 222612708494174832}
   - component: {fileID: 114709325177043410}
+  - component: {fileID: 114926066391833078}
   m_Layer: 5
   m_Name: Image Ingredient
-  m_TagString: Untagged
+  m_TagString: IngredientImage
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -55,6 +56,21 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114926066391833078
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1290524919553570}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 124e875e169aa3c4b8d02a6bfec679ab, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  scale: 2.6
+  delay: 0.01
+  moveRight: 0
+  noMove: 1
 --- !u!222 &222612708494174832
 CanvasRenderer:
   m_ObjectHideFlags: 1

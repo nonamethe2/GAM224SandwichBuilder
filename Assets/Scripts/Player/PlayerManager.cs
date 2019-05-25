@@ -88,8 +88,9 @@ public class PlayerManager : NetworkBehaviour
 		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
 			return;
 
-		evntInd += dir;
 		Button btn = GameObject.Find ("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Button> ();
+		btn.onClick.RemoveListener (() => playEvntCard (evntInd));
+		evntInd += dir;
 
 		if (evntInd >= evntCrds.Count || evntInd < 0)
 		{
@@ -122,7 +123,7 @@ public class PlayerManager : NetworkBehaviour
 		ingrInd += dir;
 		//int x = 0;
 
-		Debug.Log (dir);
+		//Debug.Log (dir);
 
 		//yes this looks bad but this area of code is buggy (understatement, multiple issues exist)
 		//also lambdas capture values weirdly and i'm trying to isolate the issue
@@ -232,10 +233,11 @@ public class PlayerManager : NetworkBehaviour
 	[Command]
 	public void CmdEndTurn ()
 	{
-		ScoreManager table = GameObject.FindGameObjectWithTag ("Table").GetComponent<ScoreManager> ();
+		//ScoreManager table = GetComponent<ScoreManager> ();
 
-		evntCrds.Add (table.evntCrdsDeck[0]);
-		table.evntCrdsDeck.RemoveAt (0);
+		//evntCrds.Add (table.evntCrdsDeck[0]);
+		evntCrds.Add (new Card (CardType.Event).ID);
+		//table.evntCrdsDeck.RemoveAt (0);
 	}
 
 	/// <summary>
@@ -244,32 +246,52 @@ public class PlayerManager : NetworkBehaviour
 	/// <param name="ind">Index of the ingredient card to play. </param>
 	public void playIngrCard(int ind)
 	{
-		Debug.Log (ind);
+		//Debug.Log (ind);
+		//Debug.Log (ingCrds[ind]);
 		//Debug.Log (GameObject.Find("Canvas/Panel Player HUD/Panel Ingredients/Button CRD1").GetComponent<Button> ().onClick.GetPersistentEventCount ());
 		//check if selected card exists or that adding the card won't exceed the ingredient limit
 		if (ingCrds.Count <= ind || (sandwich.Count + 1) >= maxIngredientsAllowed)
 			return;
 
-		CmdPlayIngredient (ind);
+		sandwich.Add (ingCrds[ind]);
+		ingCrds.RemoveAt (ind);
+
+		string tmp = "";
+		foreach (int i in sandwich)
+		{
+			tmp += i.ToString () + "|";
+		}
+
+		tmp = tmp.Substring (0, tmp.Length - 1);
+		CmdPlayIngredient (tmp, UID);
 	}
 
 	[Command]
-	public void CmdPlayIngredient (int ind)
+	public void CmdPlayIngredient (string tmp, int PID)
 	{
-		sandwich.Add (ingCrds[ind]);
-		ingCrds.RemoveAt (ind);
+		//Debug.Log (tmp);
+
+		//sandwich.Add (ingCrds[ind]);
+		//ingCrds.RemoveAt (ind);
+
+		//List<int> tmp = new List<int> ();
+		//foreach(int i in sandwich)
+		//{
+		//	tmp.Add (i);
+		//}
+
 		RpcDisplayCards ();
-		RpcDrawSandwich ();
+		RpcDrawSandwich (tmp, PID);
 	}
 
 	[ClientRpc]
-	public void RpcDrawSandwich ()
+	public void RpcDrawSandwich (string sndwch, int PID)
 	{
-		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
-			return;
+		//if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
+		//	return;
 
 		//decide which panel to use
-		CanvasGroup sndwchPanel = UID == 1 ?
+		CanvasGroup sndwchPanel = PID == 1 ?
 				GameObject.Find ("Canvas/Panel Category/Sandwich P1").GetComponent<CanvasGroup> () :
 				GameObject.Find ("Canvas/Panel Category/Sandwich P2").GetComponent<CanvasGroup> ();
 
@@ -280,16 +302,24 @@ public class PlayerManager : NetworkBehaviour
 				Destroy (trans.gameObject);
 		}
 
-		//TODO: move subsequent images down by 40
-		foreach (int i in sandwich)
+		string[] tmp = sndwch.Split ('|');
+		List<int> betterSandwich = new List<int> ();
+		foreach(string s in tmp)
+		{
+			betterSandwich.Add (int.Parse (s));
+		}
+
+		int cnt = 0;
+		foreach (int i in betterSandwich)
 		{
 			//get the associated image and add it
 			//add and destroy image objects as necessary?? removing cards?
 			Image newImg = Instantiate (Resources.Load ("Image Ingredient", typeof (Image)) as Image);
 			newImg.transform.SetParent (sndwchPanel.transform);
-			newImg.transform.tag = "IngredientImage";
-			newImg.rectTransform.localPosition = Vector3.zero;
+			newImg.rectTransform.localPosition = Vector3.zero - Vector3.up * (40 * cnt);
+			newImg.GetComponent<CardViewer> ().updateInfoForSndwchImgs ();
 			newImg.sprite = Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (i), typeof (Sprite)) as Sprite;
+			cnt += 1;
 
 		}
 	}
@@ -300,7 +330,7 @@ public class PlayerManager : NetworkBehaviour
 	/// <param name="ind">Index of the ingredient card to play. </param>
 	public void playEvntCard(int ind)
 	{
-		Debug.Log (ind);
+		//Debug.Log (ind);
 		switch (evntCrds[ind]) //call function action based on event ID
 		{
 			case 0:
@@ -310,19 +340,104 @@ public class PlayerManager : NetworkBehaviour
 			case 1:
 				CmdGrocer ();
 				break;
+
+			case 2:
+				CmdGardenFreshVeggies ();
+				break;
+
+			case 3:
+				CmdFishMarket ();
+				break;
+
+			case 4:
+				CmdButcher ();
+				break;
 		}
 	}
 
+	//iterate over deck and add first bread item found
 	[Command]
 	public void CmdBakery ()
 	{
-		//iterate over deck and add first bread item found
+		//ScoreManager table = GameObject.FindGameObjectWithTag ("Table").GetComponent<ScoreManager> ();
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		ingCrds.Add (new Card (IngredientType.Bread).ID);
+		//foreach (int i in table.ingrCrdsDeck)
+		//{
+		//	if(Card.getIngredientStats(i).IngredientType == IngredientType.Bread)
+		//	{
+		//		ingCrds.Add (i);
+		//		table.ingrCrdsDeck.Remove (i);
+		//	}
+		//}
 	}
 
+	//add the top two ingredient cards to your hand
 	[Command]
 	public void CmdGrocer ()
 	{
-		//add the top two ingredient cards to your hand
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		ingCrds.Add (new Card (CardType.Ingredient).ID);
+		ingCrds.Add (new Card (CardType.Ingredient).ID);
+
+		//ingCrds.Add (table.ingrCrdsDeck[0]);
+		//ingCrds.Add (table.ingrCrdsDeck[1]);
+
+		//removes first two items
+		//table.ingrCrdsDeck.RemoveAt (0);
+		//table.ingrCrdsDeck.RemoveAt (0);
+	}
+
+	//adds a veggie
+	[Command]
+	public void CmdGardenFreshVeggies ()
+	{
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		//foreach (int i in table.ingrCrdsDeck)
+		//{
+		//	if (Card.getIngredientStats (i).IngredientType == IngredientType.Veggies)
+		//	{
+		//		ingCrds.Add (i);
+		//		table.ingrCrdsDeck.Remove (i);
+		//	}
+		//}
+
+		ingCrds.Add (new Card (IngredientType.Veggies).ID);
+	}
+
+	//draw random card from set of first 3 cards in deck
+	[Command]
+	public void CmdFishMarket ()
+	{
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		//int rand = Random.Range (0, 3);
+
+		//ingCrds.Add (table.ingrCrdsDeck[rand]);
+		//table.ingrCrdsDeck.RemoveAt (rand);
+
+		ingCrds.Add (new Card (CardType.Ingredient).ID);
+	}
+
+	//adds a meat
+	[Command]
+	public void CmdButcher ()
+	{
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		//foreach (int i in table.ingrCrdsDeck)
+		//{
+		//	if (Card.getIngredientStats (i).IngredientType == IngredientType.Meat)
+		//	{
+		//		ingCrds.Add (i);
+		//		table.ingrCrdsDeck.Remove (i);
+		//	}
+		//}
+
+		ingCrds.Add (new Card (IngredientType.Meat).ID);
 	}
 
 	public void drawCards ()
@@ -336,22 +451,44 @@ public class PlayerManager : NetworkBehaviour
 	public void CmdDrawNewCards ()
 	{
 		//add the cards to the sync lists and then call the RPC function to update the UI
-		ScoreManager table = GameObject.FindGameObjectWithTag ("Table").GetComponent<ScoreManager> ();
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		//for (int x = 0; x < maxIngredientsAllowed; x += 1)
+		//{
+		//	if (x < maxEventCardsAllowed /*&& (evntCrds.Count < maxEventCardsAllowed || table.evntCrdsDeck.Count > 0)*/)
+		//	{
+		//		evntCrds.Add (table.evntCrdsDeck[0]);
+		//		table.evntCrdsDeck.RemoveAt (0);
+		//	}
+
+		//	//ingCrds.Add (new Card (Type.Ingredient).ID);
+		//	ingCrds.Add (table.ingrCrdsDeck[0]);
+		//	table.ingrCrdsDeck.RemoveAt (0);
+		//}
+
+		RpcAddCards ();
+		RpcDisplayCards ();
+	}
+
+	[ClientRpc]
+	public void RpcAddCards ()
+	{
+		//ScoreManager table = GetComponent<ScoreManager> ();
 
 		for (int x = 0; x < maxIngredientsAllowed; x += 1)
 		{
 			if (x < maxEventCardsAllowed /*&& (evntCrds.Count < maxEventCardsAllowed || table.evntCrdsDeck.Count > 0)*/)
 			{
-				evntCrds.Add (table.evntCrdsDeck[0]);
-				table.evntCrdsDeck.RemoveAt (0);
+				evntCrds.Add (new Card (CardType.Event).ID);
+				//evntCrds.Add (table.evntCrdsDeck[0]);
+				//table.evntCrdsDeck.RemoveAt (0);
 			}
 
 			//ingCrds.Add (new Card (Type.Ingredient).ID);
-			ingCrds.Add (table.ingrCrdsDeck[0]);
-			table.ingrCrdsDeck.RemoveAt (0);
+			ingCrds.Add (new Card (CardType.Ingredient).ID);
+			//ingCrds.Add (table.ingrCrdsDeck[0]);
+			//table.ingrCrdsDeck.RemoveAt (0);
 		}
-		
-		RpcDisplayCards ();
 	}
 
 	[ClientRpc]
@@ -361,15 +498,44 @@ public class PlayerManager : NetworkBehaviour
 		if (!GetComponent<NetworkIdentity> ().isLocalPlayer)
 			return;
 
+		//ScoreManager table = GetComponent<ScoreManager> ();
+
+		//for (int x = 0; x < maxIngredientsAllowed; x += 1)
+		//{
+		//	if (x < maxEventCardsAllowed /*&& (evntCrds.Count < maxEventCardsAllowed || table.evntCrdsDeck.Count > 0)*/)
+		//	{
+		//		evntCrds.Add (table.evntCrdsDeck[0]);
+		//		table.evntCrdsDeck.RemoveAt (0);
+		//	}
+
+		//	//ingCrds.Add (new Card (Type.Ingredient).ID);
+		//	ingCrds.Add (table.ingrCrdsDeck[0]);
+		//	table.ingrCrdsDeck.RemoveAt (0);
+		//}
+
 		HUD = GameObject.Find ("Canvas/Panel Player HUD").GetComponent<CanvasGroup> ();
 		GameObject.Find("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Image> ().sprite =
 					Resources.Load ("Cards/Events/" + Card.getEvntImg (evntCrds[0]), typeof (Sprite)) as Sprite;
 		//GameObject.Find ("Canvas/Panel Player HUD/Panel Events/Button CRD7").GetComponent<Button> ().onClick.AddListener (() => playEvntCard (0));
 
-		for (int x = 2; x < ingCrds.Count+1; x += 1)
+		//Debug.Log (ingCrds.Count);
+		for (int x = 2; x < 7; x += 1)
 		{
-			HUD.transform.GetChild (0).GetChild (x).GetComponent<Image> ().sprite =
-				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[x-2]), typeof (Sprite)) as Sprite;
+			//Debug.Log (x - 2);
+			//if (ingCrds.Count > (x - 2))
+			//{
+			//	HUD.transform.GetChild (0).GetChild (x).GetComponent<Image> ().sprite =
+			//		Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[x - 2]), typeof (Sprite)) as Sprite;
+			//}
+			//else
+			//{
+			//	HUD.transform.GetChild (0).GetChild (x).GetComponent<Image> ().sprite =
+			//		Resources.Load ("Cards/Blank", typeof (Sprite)) as Sprite;
+			//}
+
+			HUD.transform.GetChild (0).GetChild (x).GetComponent<Image> ().sprite = ingCrds.Count > (x-2) ?
+				Resources.Load ("Cards/Ingredients/" + Card.getIngrdntImg (ingCrds[x - 2]), typeof (Sprite)) as Sprite :
+				Resources.Load ("Cards/Blank", typeof (Sprite)) as Sprite;
 
 			//HUD.transform.GetChild (0).GetChild (x).GetComponent<Button> ().onClick.AddListener (() => playIngrCard (x));
 

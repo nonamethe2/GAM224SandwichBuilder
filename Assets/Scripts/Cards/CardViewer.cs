@@ -28,6 +28,13 @@ public class CardViewer : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
 		prnt = transform.parent;
 	}
 
+	public void updateInfoForSndwchImgs ()
+	{
+		startPos = GetComponent<RectTransform> ().localPosition;
+		siblingIndex = transform.GetSiblingIndex ();
+		prnt = transform.parent;
+	}
+
 	public void OnPointerEnter (PointerEventData eventData)
 	{
 		Vector3 curPos = GetComponent<RectTransform> ().localPosition;

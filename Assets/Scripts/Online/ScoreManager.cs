@@ -14,8 +14,8 @@ public class ScoreManager : NetworkBehaviour {
 	public SyncListInt catCrds = new SyncListInt (); 
 
 	//the two decks cards are drawn from
-	public SyncListInt ingrCrdsDeck = new SyncListInt (); 
-	public SyncListInt evntCrdsDeck = new SyncListInt ();
+	//public SyncListInt ingrCrdsDeck = new SyncListInt (); 
+	//public SyncListInt evntCrdsDeck = new SyncListInt ();
 
 	//sandwiches currently on the table
 	//public SyncListInt sandwichP1 = new SyncListInt ();
@@ -28,7 +28,17 @@ public class ScoreManager : NetworkBehaviour {
 	private int activeCat = 0; //the currently displayed category card (checking all active categories will not affect others)
 
 	void Start () {
-		DontDestroyOnLoad (gameObject);
+		//Debug.Log (NetworkClient.allClients[0].connection);
+		//GetComponent<NetworkIdentity> ().AssignClientAuthority (NetworkClient.allClients[NetworkClient.allClients.Count - 1].connection);
+
+		//DontDestroyOnLoad (gameObject);
+
+		if (GetComponent<NetworkIdentity> ().isLocalPlayer)
+		{
+			//GameObject.Find ("Canvas/Button Create Deck").GetComponent<Button> ().onClick.AddListener (() => genDeckBtnResponse ());
+			GameObject.Find ("Canvas/Button End Turn").GetComponent<Button> ().onClick.AddListener (() => endTurn ());
+			GameObject.Find ("Canvas/Button Play Cat Crd").GetComponent<Button> ().onClick.AddListener (() => playNewCat ());
+		}
 	}
 
 	public void btnNextCatCrd ()
@@ -73,34 +83,45 @@ public class ScoreManager : NetworkBehaviour {
 	/// <summary>
 	/// Function linked to the GUI button that will begin to create the decks.
 	/// </summary>
-	public void genDeckBtnResponse ()
-	{
-		CmdGenDeck ();
-	}
+	//public void genDeckBtnResponse ()
+	//{
+	//	CmdGenDeck ();
+	//	GameObject.Find ("Canvas/Button Create Deck").SetActive (false);
+	//}
 
 	//server command to generate the deck and enforce synchronisity
-	[Command]
-	public void CmdGenDeck ()
-	{
-		for (int x = 0; x < MAX_INGREDIENT_CARDS; x += 1)
-		{
-			ingrCrdsDeck.Add (new Card (CardType.Ingredient).ID);
-		}
+	//[Command]
+	//public void CmdGenDeck ()
+	//{
+	//	//for (int x = 0; x < MAX_INGREDIENT_CARDS; x += 1)
+	//	//{
+	//	//	ingrCrdsDeck.Add (new Card (CardType.Ingredient).ID);
+	//	//}
 
-		for (int x = 0; x < MAX_EVENT_CARDS; x += 1)
-		{
-			evntCrdsDeck.Add (new Card (CardType.Event).ID);
-		}
+	//	//for (int x = 0; x < MAX_EVENT_CARDS; x += 1)
+	//	//{
+	//	//	evntCrdsDeck.Add (new Card (CardType.Event).ID);
+	//	//}
 
-		RpcGenDeck ();
-	}
+	//	RpcGenDeck ();
+	//}
 
 	//disables the button
-	[ClientRpc]
-	public void RpcGenDeck ()
-	{
-		GameObject.Find ("Canvas/Button Create Deck").SetActive (false);
-	}
+	//[ClientRpc]
+	//public void RpcGenDeck ()
+	//{
+	//	for (int x = 0; x < MAX_INGREDIENT_CARDS; x += 1)
+	//	{
+	//		ingrCrdsDeck.Add (new Card (CardType.Ingredient).ID);
+	//	}
+
+	//	for (int x = 0; x < MAX_EVENT_CARDS; x += 1)
+	//	{
+	//		evntCrdsDeck.Add (new Card (CardType.Event).ID);
+	//	}
+
+	//	//GameObject.Find ("Canvas/Button Create Deck").SetActive (false);
+	//}
 
 	//adds a new ACTIVE category card. It will be placed on the table in the following RPC call.
 	[Command]
@@ -126,10 +147,48 @@ public class ScoreManager : NetworkBehaviour {
 	/// </summary>
 	public void endTurn ()
 	{
-		activeTurn += 1;
-		if (activeTurn > 1)
-			activeTurn = 0;
+		//activeTurn += 1;
+		//if (activeTurn > 1)
+		//	activeTurn = 0;
+
+		//GameObject.Find ("Canvas/Text Active Turn").GetComponent<Text> ().text = "Turn Player: " + activeTurn.ToString ();
+		//CmdSwitchActPlayer (activeTurn);
+		CmdUpdateTurn ();
 	}
+
+	[Command]
+	public void CmdUpdateTurn ()
+	{
+		//activeTurn += 1;
+		//if (activeTurn > 1)
+		//	activeTurn = 0;
+
+		RpcUpdateTurn ();
+	}
+
+	[ClientRpc]
+	public void RpcUpdateTurn ()
+	{
+		//activeTurn += 1;
+		//if (activeTurn > 1)
+		//	activeTurn = 0;
+
+		activeTurn = activeTurn == 0 ? 1 : 0;  //if activeTurn is 0 set to 1 else set to 0
+
+		GameObject.Find ("Canvas/Text Active Turn").GetComponent<Text> ().text = "Turn Player: " + activeTurn.ToString ();
+	}
+
+	//[Command]
+	//public void CmdSwitchActPlayer (int turn)
+	//{
+	//	RpcSwitchActPlayer (turn);
+	//}
+
+	//[ClientRpc]
+	//public void RpcSwitchActPlayer (int turn)
+	//{
+
+	//}
 
 	/// <summary>
 	/// TODO: needs to enforce only being able to play a new one when a sandwich is completed

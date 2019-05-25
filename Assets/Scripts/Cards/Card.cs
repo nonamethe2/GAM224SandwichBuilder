@@ -8,8 +8,8 @@ using System.Xml;
 public class Card {
 
 	public int ID = -1;
-	public CardType cardType;
-	public IngredientType IngredientType;
+	public CardType cardType = CardType.None;
+	public IngredientType IngredientType = IngredientType.None;
 
 	public int meaty, salty, sour, spicy, sweet = 0;
 	public int crunch, juicy, soft = 0;
@@ -35,6 +35,12 @@ public class Card {
 		genID ();
 	}
 
+	public Card(IngredientType newIngType)
+	{
+		IngredientType = newIngType;
+		genID ();
+	}
+
 	/// <summary>
 	/// Constructor overload to set the ID and type. 
 	/// </summary>
@@ -57,7 +63,31 @@ public class Card {
 		switch (cardType)
 		{
 			case CardType.Ingredient:
-				ID = UnityEngine.Random.Range (0, 28); 
+				if (IngredientType == IngredientType.None)
+				{
+					ID = UnityEngine.Random.Range (0, 29);
+				}
+				else
+				{
+					switch (IngredientType)
+					{
+						case IngredientType.Bread:
+							ID = UnityEngine.Random.Range (0, 7);
+							break;
+
+						case IngredientType.Cheese:
+							ID = UnityEngine.Random.Range (23, 29);
+							break;
+
+						case IngredientType.Meat:
+							ID = UnityEngine.Random.Range (7, 16);
+							break;
+
+						case IngredientType.Veggies:
+							ID = UnityEngine.Random.Range (16, 23);
+							break;
+					}
+				}
 				break;
 
 			case CardType.Event:

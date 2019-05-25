@@ -68,14 +68,9 @@ public class NetworkManager_Custom : NetworkManager {
 			{
 				var playerObj = Instantiate (playerPrefab, Vector3.zero, Quaternion.identity);
 				var player = playerObj.GetComponent<PlayerManager> ();
-				//var player = conn.playerControllers[0].gameObject;
-				//var player = playerObj.GetComponent<NetworkIdentity> ().playerControllerId;
 				playerSlots[slot] = player;//.GetComponent<PlayerManager> ();
 
-				//GameObject.Find ("Canvas/Panel Category/Text TEMP Cat").GetComponent<Text> ().text = 
-				//	GameObject.Find("Gamemanager").GetComponent<ScoreManager>().cat1.ToString ();
-
-				//GameObject.Find ("Gamemanager").GetComponent<ScoreManager> ().CmdAddNewCatCard ();
+				//assign client authority to gamemanager
 
 				NetworkServer.AddPlayerForConnection (conn, playerObj, playerControllerId);
 				return;
