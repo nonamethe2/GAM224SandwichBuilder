@@ -330,7 +330,8 @@ public class PlayerManager : NetworkBehaviour
 	/// <param name="ind">Index of the ingredient card to play. </param>
 	public void playEvntCard(int ind)
 	{
-		//Debug.Log (ind);
+		Debug.Log (ind);
+		//Debug.Log (evntCrds[ind]);
 		switch (evntCrds[ind]) //call function action based on event ID
 		{
 			case 0:
@@ -353,6 +354,16 @@ public class PlayerManager : NetworkBehaviour
 				CmdButcher ();
 				break;
 		}
+
+		//if (evntCrds.Count > ind && evntInd > 0)
+		//	evntInd -= 1;
+		CmdDelPlayedEvnt (ind);
+	}
+
+	[Command]
+	public void CmdDelPlayedEvnt(int ind)
+	{
+		evntCrds.RemoveAt (ind);
 	}
 
 	//iterate over deck and add first bread item found

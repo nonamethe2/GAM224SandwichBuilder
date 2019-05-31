@@ -72,19 +72,19 @@ public class Card {
 					switch (IngredientType)
 					{
 						case IngredientType.Bread:
-							ID = UnityEngine.Random.Range (0, 7);
+							ID = UnityEngine.Random.Range (0, 9);
 							break;
 
 						case IngredientType.Cheese:
-							ID = UnityEngine.Random.Range (23, 29);
+							ID = UnityEngine.Random.Range (25, 31);
 							break;
 
 						case IngredientType.Meat:
-							ID = UnityEngine.Random.Range (7, 16);
+							ID = UnityEngine.Random.Range (9, 18);
 							break;
 
 						case IngredientType.Veggies:
-							ID = UnityEngine.Random.Range (16, 23);
+							ID = UnityEngine.Random.Range (18, 25);
 							break;
 					}
 				}
