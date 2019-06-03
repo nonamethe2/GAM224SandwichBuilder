@@ -1,7 +1,16 @@
 h1 {
-	
+	/* display:inline; */
 }
 
 .Main {
 	text-align:center;
+}
+
+.SmallImg{
+	width:86%;
+	padding:1%;
+}
+
+.Header{ 
+	
 }
